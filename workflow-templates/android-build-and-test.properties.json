@@ -1,6 +1,6 @@
 {
-    "name": "AEVI Android Release Workflow",
-    "description": "Template workflow for Android releases",
+    "name": "AEVI Android Build/Test Workflow",
+    "description": "Template workflow for building and testing Android code",
     "iconName": "android",
     "categories": [
         "Android"
