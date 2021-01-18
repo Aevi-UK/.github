@@ -1,0 +1,2 @@
+# .github
+AEVI organisation templates
