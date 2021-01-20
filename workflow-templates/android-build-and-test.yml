@@ -35,4 +35,4 @@ jobs:
           java-version: 1.8
 
       - name: Build / Test
-        run: ./gradlew {{ env.BUILD_COMMANDS }} -Paws_accessid=${{secrets.AWS_ACCESS_KEY_ID}} -Paws_accesskey=${{secrets.AWS_SECRET_ACCESS_KEY}}
+        run: ./gradlew ${{env.BUILD_COMMANDS}} -Paws_accessid=${{secrets.AWS_ACCESS_KEY_ID}} -Paws_accesskey=${{secrets.AWS_SECRET_ACCESS_KEY}}
