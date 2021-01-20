@@ -6,6 +6,8 @@ env:
   APP_NAME: TODO APP NAME HERE
   APP_MODULE: TODO NAME OF MODULE HERE
   NOTIFICATION_FOOTER: Stay calm and drink gin.
+  SDK_DEV_KEYSTORE: ${{ secrets.SDK_DEV_KEYSTORE }}
+  SDK_DEV_KEYSTORE_PASSWORD: ${{ secrets.SDK_DEV_KEYSTORE_PASSWORD }}
 
 on:
   push:
@@ -81,7 +83,7 @@ jobs:
       - name: Write apk file locations to env variables
         id: apk-file-path
         run: |
-          ./gradlew {{env.APP_MODULE}}:writeApkFilePathForRelease {{env.APP_MODULE}}:writeApkFilePathForUnsigned \
+          ./gradlew ${{env.APP_MODULE}}:writeApkFilePathForRelease ${{env.APP_MODULE}}:writeApkFilePathForUnsigned \
           -Paws_accessid=${{secrets.AWS_ACCESS_KEY_ID}} \
           -Paws_accesskey=${{secrets.AWS_SECRET_ACCESS_KEY}} \
           -Pversion_major=${{env.VERSION_MAJOR}} \
@@ -95,7 +97,7 @@ jobs:
         uses: softprops/action-gh-release@v1
         with:
           name: Version ${{env.TAG}}
-          body: See [CHANGELOG](https://github.com/{{env.GITHUB_REPOSITORY}}/blob/${{env.TAG}}/CHANGELOG.md) for release notes.
+          body: See [CHANGELOG](https://github.com/${{github.repository}}/blob/${{env.TAG}}/CHANGELOG.md) for release notes.
           prerelease: ${{env.PRE_RELEASE}}
           files: |
             ${{ steps.apk-file-path.outputs.apk_path_release }}
@@ -133,10 +135,10 @@ jobs:
         env:
           SLACK_CHANNEL: sdk-releases
           SLACK_COLOR: '#CC0033'
-          SLACK_PRETEXT: New {{env.APP_NAME}} Release
+          SLACK_PRETEXT: New ${{env.APP_NAME}} Release
           VERSION_NAME: ${{env.TAG}}
           VARIANTS: release, unsigned
-          CHANGELOG_URL: https://github.com/{{env.GITHUB_REPOSITORY}}/blob/${{env.TAG}}/CHANGELOG.md
+          CHANGELOG_URL: https://github.com/${{github.repository}}/blob/${{env.TAG}}/CHANGELOG.md
           RELEASE_URL: ${{ steps.create-release.outputs.url }}
-          SLACK_FOOTER: {{ env.NOTIFICATION_FOOTER }}
+          SLACK_FOOTER: ${{ env.NOTIFICATION_FOOTER }}
           SLACK_WEBHOOK: ${{ secrets.SLACK_WEBHOOK_SDK_RELEASES }}        
