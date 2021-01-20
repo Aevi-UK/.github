@@ -14,8 +14,8 @@ on:
     tags:
       # <major.minor.patch>, example: 1.0.0
       - '[0-9]+.[0-9]+.[0-9]+'
-      # <major.minor.patch-RC<number>>, example: 1.0.0-RC1
-      - '[0-9]+.[0-9]+.[0-9]+-RC[0-9]+'
+      # <major.minor.patch-<tag>.<number>>, example: 1.0.0-RC.1, 1.0.0-alpha.2, 1.0.0-beta.14
+      - '[0-9]+.[0-9]+.[0-9]+-*.[0-9]+'
 
 jobs:
   deploy:
