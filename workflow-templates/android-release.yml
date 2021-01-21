@@ -71,7 +71,7 @@ jobs:
 
       - name: Verify that tag major.minor.patch from tag matches what is in gradle.properties
         run: |
-          ./gradlew verifyVersionMatchesGradleProperties \
+          ./gradlew verifyTagVersionMatchesGradleProperties \
           -Paws_accessid=${{secrets.AWS_ACCESS_KEY_ID}} \
           -Paws_accesskey=${{secrets.AWS_SECRET_ACCESS_KEY}} \
           -Ptag_version_major=${{env.VERSION_MAJOR}} \
